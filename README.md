@@ -16,6 +16,30 @@ python analysis.py
 
 Results: written to `results.json` (charts saved to `figures/`).
 
+## Results (latest run)
+
+On the public UCI Adult Income stand-in, a logistic regression baseline reached worst-scenario macro-F1 of 59% on the held-out test set, while my class-balanced LightGBM with scenario-coverage features reached 70% (single split).
+
+| Metric | Value |
+|---|---|
+| baseline_score | 0.5943 |
+| improved_score | 0.6966 |
+| improvement | 0.1023 |
+| baseline_score_std | 0 |
+| improved_score_std | 0 |
+| baseline_f1 | 0.7827 |
+| improved_f1 | 0.8179 |
+| baseline_n_below_threshold | 3 |
+| improved_n_below_threshold | 1 |
+| n_scenarios_evaluated | 6 |
+| under_served_threshold | 0.7 |
+| ensemble_weight_lgbm | 0.5 |
+| runtime_seconds | 90.86 |
+
+Run on 2026-10-22. Full output: [results.json](results.json) · [run.log](run.log)
+
+Notes: Scenarios are a constructed rule on Adult attributes, not a real code-generation benchmark; the paper's reported result is not reproduced. Only one train/test split; seed-based std covers model randomness only. Threshold for under-served scenarios is an arbitrary choice. Small scenarios (<50 test rows) are excluded from the main metric.
+
 ## Reference
 
 This project is motivated by the following paper:
