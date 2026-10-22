@@ -1,0 +1,33 @@
+{
+  "question": "Can a class-balanced, cross-validated gradient-boosting model that explicitly models scenario coverage identify under-served scenarios better than a standard per-scenario aggregate baseline on a public stand-in dataset?",
+  "method": "Adult income as stand-in; scenarios = education band x sex; stratified 70/30 split; CV tuning on train only; worst-scenario macro-F1 on test.",
+  "dataset": {
+    "name": "UCI Adult Income",
+    "source_url": "https://archive.ics.uci.edu/dataset/2/adult",
+    "n_rows": 48842,
+    "n_train": 34189,
+    "n_test": 14653,
+    "same_as_paper": false,
+    "baseline_is_papers_method": false
+  },
+  "metric_name": "worst-scenario macro-F1 (scenarios with >=50 test rows)",
+  "higher_is_better": true,
+  "baseline": "Logistic regression (CV-tuned C) reporting per-scenario aggregate macro-F1; no coverage reasoning.",
+  "improved": "Class-balanced CV-tuned LightGBM with scenario-size and per-scenario class-balance features, averaged with the baseline via a CV-selected weight.",
+  "metrics": {
+    "baseline_score": 0.5943244860219732,
+    "improved_score": 0.696636925188744,
+    "improvement": 0.1023124391667708,
+    "baseline_score_std": 0.0,
+    "improved_score_std": 0.0,
+    "baseline_f1": 0.7826867191699374,
+    "improved_f1": 0.8179369923407831,
+    "baseline_n_below_threshold": 3,
+    "improved_n_below_threshold": 1,
+    "n_scenarios_evaluated": 6,
+    "under_served_threshold": 0.7,
+    "ensemble_weight_lgbm": 0.5,
+    "runtime_seconds": 90.85948586463928
+  },
+  "notes": "Scenarios are a constructed rule on Adult attributes, not a real code-generation benchmark; the paper's reported result is not reproduced. Only one train/test split; seed-based std covers model randomness only. Threshold for under-served scenarios is an arbitrary choice. Small scenarios (<50 test rows) are excluded from the main metric."
+}
